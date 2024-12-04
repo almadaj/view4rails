@@ -19,6 +19,11 @@ export const FormContainer = styled.div`
   height: 100vh;
   width: 40%;
   background-color: #fff;
+
+  @media (max-width: 768px) {
+    width: 100%;
+    background-color: #e4f3fb;
+  }
 `;
 
 export const Banner = styled.img`
@@ -26,11 +31,14 @@ export const Banner = styled.img`
   object-fit: contain;
   height: 80vh;
   width: 60%;
+  @media (max-width: 768px) {
+    display: none;
+  }
 `;
 
 export const LogoHorizontal = styled.img`
   object-fit: cover;
-  width: 40%;
+  width: 200px;
   margin-bottom: -4rem;
   clip-path: inset(0 0 20% 0);
 `;
@@ -63,6 +71,11 @@ export const Input = styled.input`
     border-color: #007bff;
     outline: none;
   }
+
+  @media (max-width: 785px) {
+    width: 70%;
+    padding: 10px;
+  }
 `;
 
 export const Button = styled.button`
@@ -73,4 +86,9 @@ export const Button = styled.button`
   border: none;
   border-radius: 15px;
   font-size: 1rem;
+
+  @media (max-width: 785px) {
+    width: 70%;
+    padding: 10px;
+  }
 `;

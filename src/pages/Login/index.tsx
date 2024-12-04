@@ -11,12 +11,15 @@ import {
 } from './styles';
 import banner from '../../assets/images/illustration-login.png';
 import logo from '../../assets/images/logo-u.webp';
+import { useNavigate } from 'react-router-dom';
 const Login = () => {
+  const navigate = useNavigate();
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
 
   const handleLogin = () => {
     console.log('Email:', email, 'Password:', password);
+    navigate('/home');
   };
 
   return (
