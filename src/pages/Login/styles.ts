@@ -55,15 +55,21 @@ export const SubTitle = styled.h2`
   color: #a5a5a5;
 `;
 
+export const Error = styled.p`
+  color: red;
+  font-size: 1rem;
+  margin-top: -5px;
+`;
+
 export const Input = styled.input`
   width: 300px;
   padding: 0.5rem;
+  padding-left: 1rem;
   margin-bottom: 1rem;
   border: 1px solid #ccc;
   border-radius: 15px;
   font-size: 1rem;
   &::placeholder {
-    padding-left: 0.5rem;
     color: #c5c5c5;
   }
 
