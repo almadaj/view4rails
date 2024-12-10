@@ -12,7 +12,7 @@ const Home = () => {
       try {
         const token = localStorage.getItem('userId');
         if (!token) {
-          navigate('/login');
+          navigate('/');
           throw new Error('Token not found');
         }
 
