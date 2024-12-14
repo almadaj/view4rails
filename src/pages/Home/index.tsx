@@ -19,8 +19,8 @@ const Home = () => {
         const user = await userService.getUserById(token);
         setUserName(user.name);
         if (!user) {
-          navigate('/login');
-          throw new Error('Token not found');
+          navigate('/');
+          throw new Error('User not found');
         }
       } catch (error) {
         console.log('Error in fetchUser', error);
@@ -28,7 +28,11 @@ const Home = () => {
     };
     fetchUser();
   }, [navigate]);
-  return <Title>Olá, {userName}</Title>;
+  return (
+    <>
+      <Title>Olá, {userName}</Title>
+    </>
+  );
 };
 
 export default Home;
