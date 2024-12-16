@@ -1,15 +1,30 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
 import LoginPage from '../pages/Login';
 import Home from '../pages/Home';
-import { NavBar } from 'src/components/common/NavBar';
+import Hamburguer from 'src/components/common/Hamburguer';
 
-const LayoutWithNavbar = ({ children }: { children: React.ReactNode }) => (
-  <>
-    <NavBar />
-    {children}
-  </>
-);
+const LayoutWithNavbar = ({ children }: { children: React.ReactNode }) => {
+  const [isExpanded, setIsExpanded] = useState(false);
+  const toggleDrawer = () => {
+    setIsExpanded((prev) => !prev);
+  };
+
+  return (
+    <>
+      <Hamburguer isExpanded={isExpanded} toggleDrawer={toggleDrawer} />
+      <div
+        style={{
+          flexGrow: 1,
+          marginLeft: isExpanded ? 240 : 60,
+          transition: 'margin-left 0.3s',
+        }}
+      >
+        {children}
+      </div>
+    </>
+  );
+};
 
 const StackRoutes = () => {
   return (
