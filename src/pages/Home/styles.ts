@@ -2,7 +2,9 @@ import styled from 'styled-components';
 
 export const Container = styled.div`
   display: flex;
+  flex-direction: column;
   height: 100vh;
+  background-color: aliceblue;
 `;
 
 export const GreetingContainer = styled.div`
@@ -47,6 +49,7 @@ export const AddButton = styled.button`
   padding: 0.7rem 1.5rem;
   height: 3rem;
   margin-top: 2.7rem;
+  cursor: pointer;
 `;
 
 export const Notification = styled.button`
@@ -60,4 +63,13 @@ export const Notification = styled.button`
   justify-content: center;
   font-size: 1rem;
   margin-top: 2.7rem;
+`;
+
+export const ChartCard = styled.div`
+  flex-direction: column;
+  background-color: #fff;
+  border-radius: 10px;
+  max-width: 40%;
+  padding: 1rem;
+  margin-left: 3rem;
 `;

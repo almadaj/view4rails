@@ -8,10 +8,12 @@ import {
   WelcomeText,
   Notification,
   RightContainer,
+  ChartCard,
 } from './styles';
 import Notifications from '@mui/icons-material/Notifications';
 import { useNavigate } from 'react-router-dom';
 import userService from 'src/services/userService';
+import InternshipChart from 'src/components/InternshipChart';
 
 const Home = () => {
   const navigate = useNavigate();
@@ -53,6 +55,9 @@ const Home = () => {
           </Notification>
         </RightContainer>
       </Header>
+      <ChartCard>
+        <InternshipChart />
+      </ChartCard>
     </Container>
   );
 };
