@@ -18,15 +18,6 @@ const userService = {
   },
   getUserById: async (id: string) => {
     try {
-      // const token = localStorage.getItem('token');
-      // if (!token) {
-      //   throw new Error('Token not found');
-      // }
-      // const res = await api.get(`/users/${id}`, {
-      //   headers: {
-      //     Authorization: `Bearer ${token}`,
-      //   },
-      // });
       const headers = getTokenAndHeaders();
       const res = await api.get(`/users/${id}`, headers);
       return res.data;

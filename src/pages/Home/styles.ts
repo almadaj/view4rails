@@ -20,6 +20,8 @@ export const Header = styled.div`
   padding: 1rem;
   flex-grow: 1;
   margin: 0 0.5rem;
+  max-width: 100%;
+  max-height: 20%;
 `;
 
 export const WelcomeText = styled.h2`
@@ -66,10 +68,18 @@ export const Notification = styled.button`
 `;
 
 export const ChartCard = styled.div`
-  flex-direction: column;
   background-color: #fff;
   border-radius: 10px;
-  max-width: 40%;
+  max-width: max-content;
   padding: 1rem;
   margin-left: 3rem;
+  margin-top: 2rem;
+  box-shadow: 4px 4px 10px rgba(0, 0, 0, 0.1);
+  cursor: pointer;
+`;
+
+export const ChartTitle = styled.h3`
+  font-size: 1.5rem;
+  margin: 0;
+  padding: 10px 15px;
 `;

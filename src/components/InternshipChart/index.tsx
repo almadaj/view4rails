@@ -1,45 +1,120 @@
-import React from 'react';
-import { Bar } from 'react-chartjs-2';
+/* eslint-disable @typescript-eslint/no-explicit-any */
+import React, { useEffect, useState } from 'react';
+import { Line } from 'react-chartjs-2';
 import { ChartData } from 'chart.js';
 import { ChartOptions } from 'chart.js';
 import {
   Chart as ChartJS,
   CategoryScale,
   LinearScale,
-  BarElement,
+  LineElement,
+  PointElement,
   Tooltip,
   Legend,
 } from 'chart.js';
+import internshipService from 'src/services/internshipService';
 
-ChartJS.register(CategoryScale, LinearScale, BarElement, Tooltip, Legend);
+ChartJS.register(
+  CategoryScale,
+  LinearScale,
+  LineElement,
+  PointElement,
+  Tooltip,
+  Legend,
+);
 
-const PerformanceChart: React.FC = () => {
-  const data: ChartData<'bar'> = {
-    labels: ['Janeiro', 'Fevereiro', 'Março', 'Abril', 'Maio'],
+const PerformanceChart = () => {
+  const [monthlyCounts, setMonthlyCounts] = useState<number[]>([]);
+
+  const getLastMonths = () => {
+    const today = new Date();
+    const months = [];
+    for (let i = 4; i >= 0; i--) {
+      const month = new Date(today);
+      month.setMonth(today.getMonth() - i);
+      months.push(
+        month
+          .toLocaleString('pt-BR', { month: 'long' })
+          .charAt(0)
+          .toUpperCase() +
+          month.toLocaleString('pt-BR', { month: 'long' }).slice(1),
+      );
+    }
+    return months;
+  };
+
+  useEffect(() => {
+    const fetchChartData = async () => {
+      try {
+        const res = await internshipService.getInternships();
+        console.log('API Response:', res);
+        const months = getLastMonths();
+
+        const counts = months.map((month) => {
+          const countsForMonth = res.filter((item: any) => {
+            if (!item.start_date) return false;
+            const itemDate = new Date(item.start_date);
+            const itemMonth = itemDate.toLocaleString('pt-BR', {
+              month: 'long',
+            });
+            console.log(`Item Date: ${itemDate}, Month: ${itemMonth}`);
+            return itemMonth.toLowerCase() === month.toLowerCase();
+          });
+          return countsForMonth.length;
+        });
+
+        console.log('Monthly Counts:', counts);
+        setMonthlyCounts(counts);
+      } catch (error) {
+        console.error('Error in fetchChartData:', error);
+      }
+    };
+
+    fetchChartData();
+  }, []);
+
+  const data: ChartData<'line'> = {
+    labels: getLastMonths(),
     datasets: [
       {
-        label: 'Desempenho',
-        data: [10, 20, 15, 25, 30],
-        backgroundColor: 'rgba(75, 192, 192, 0.6)',
+        label: 'Novos Estágios',
+        data: monthlyCounts,
+        borderColor: 'rgba(75, 192, 192, 1)',
+        backgroundColor: 'rgba(75, 192, 192, 0.2)',
+        pointBackgroundColor: 'rgba(75, 192, 192, 1)',
+        pointBorderColor: '#fff',
+        tension: 0.3,
       },
     ],
   };
 
-  // Configurações do gráfico
-  const options: ChartOptions<'bar'> = {
+  const options: ChartOptions<'line'> = {
     responsive: true,
     plugins: {
       legend: {
-        position: 'top',
+        display: false,
+        position: 'bottom',
       },
       title: {
         display: true,
-        text: 'Gráfico de Desempenho',
+        text: 'Gráfico de Desempenho - Últimos Meses',
+      },
+    },
+    scales: {
+      x: {
+        title: {
+          display: false,
+        },
+      },
+      y: {
+        title: {
+          display: false,
+        },
       },
     },
   };
 
-  return <Bar data={data} options={options} />;
+  return <Line data={data} options={options} />;
 };
 
 export default PerformanceChart;
