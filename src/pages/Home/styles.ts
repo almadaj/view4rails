@@ -66,6 +66,11 @@ export const Notification = styled.button`
   font-size: 1rem;
   margin-top: 2.7rem;
 `;
+export const ChartContainer = styled.div`
+  display: flex;
+  flex-direction: row;
+  margin: 0 0.5rem;
+`;
 
 export const ChartCard = styled.div`
   background-color: #fff;
@@ -75,6 +80,7 @@ export const ChartCard = styled.div`
   margin-left: 3rem;
   margin-top: 2rem;
   box-shadow: 4px 4px 10px rgba(0, 0, 0, 0.1);
+  flex-direction: row;
   cursor: pointer;
 `;
 

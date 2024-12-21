@@ -10,14 +10,18 @@ import {
   RightContainer,
   ChartCard,
   ChartTitle,
+  ChartContainer,
 } from './styles';
 import Notifications from '@mui/icons-material/Notifications';
 import { useNavigate } from 'react-router-dom';
 import userService from 'src/services/userService';
 import InternshipChart from 'src/components/InternshipChart';
+import { Company } from 'src/entities/Company';
+import companyService from 'src/services/companyService';
 const Home = () => {
   const navigate = useNavigate();
   const [userName, setUserName] = useState<string>('');
+  const [companies, setCompanies] = useState<Company[]>([]);
 
   useEffect(() => {
     document.title = 'Home | CampusLink';
@@ -37,6 +41,16 @@ const Home = () => {
         }
       } catch (error) {
         console.log('Error in fetchUser', error);
+      } finally {
+        const fetchCompanies = async () => {
+          try {
+            const companies = await companyService.getCompanies();
+            setCompanies(companies);
+          } catch (error) {
+            console.log('Error in fetchCompanies', error);
+          }
+        };
+        fetchCompanies();
       }
     };
     fetchUser();
@@ -55,31 +69,24 @@ const Home = () => {
           </Notification>
         </RightContainer>
       </Header>
-      <ChartCard onClick={() => navigate('/internships')}>
-        <ChartTitle>Novos Estágios</ChartTitle>
-        <InternshipChart />
-      </ChartCard>
-      {/* <ChartCard>
-        <h2>Lista de Estágios</h2>
-        <ul>
-          {internships.map((internship) => (
-            <li key={internship.id}>
-              <strong>Empresa:</strong> {internship.company_id} <br />
-              <strong>Estudante:</strong> {internship.student_id} <br />
-              <strong>Bolsa:</strong> R${internship.salary} <br />
-              <strong>Carga-Horária:</strong> {internship.workload} horas/semana{' '}
-              <br />
-              <strong>Start Date:</strong>{' '}
-              {new Date(internship.start_date).toLocaleDateString()} <br />
-              <strong>End Date:</strong>{' '}
-              {internship.end_date
-                ? new Date(internship.end_date).toLocaleDateString()
-                : 'Em curso'}{' '}
-              <br />
-            </li>
-          ))}
-        </ul>
-      </ChartCard> */}
+      <ChartContainer>
+        <ChartCard onClick={() => navigate('/internships')}>
+          <ChartTitle>Novos Estágios</ChartTitle>
+          <InternshipChart />
+        </ChartCard>
+        <ChartCard>
+          <h2>Empresas com Alunos</h2>
+          <ul>
+            {companies.map((company) => (
+              <li key={company.id}>
+                <strong>Empresa:</strong> {company.name} <br />
+                <strong>Contato:</strong> {company.email}
+                <br />
+              </li>
+            ))}
+          </ul>
+        </ChartCard>
+      </ChartContainer>
     </Container>
   );
 };
