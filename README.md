@@ -30,7 +30,7 @@ Para utilização completa da aplicação, deve-se utilizar a API localmente. An
 
    - Primeiro, clone o repositório para sua máquina local:
      ```bash
-     git clone https://github.com/seu-usuario/campuslink-frontend.git
+     git clone https://github.com/almadaj/view4rails.git
      cd campuslink-frontend
      ```
 
