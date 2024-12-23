@@ -3,8 +3,9 @@ import styled from 'styled-components';
 export const Container = styled.div`
   display: flex;
   flex-direction: column;
-  height: 100vh;
+  height: max-content;
   background-color: aliceblue;
+  padding-bottom: 3rem;
 `;
 
 export const GreetingContainer = styled.div`
@@ -51,6 +52,7 @@ export const AddButton = styled.button`
   padding: 0.7rem 1.5rem;
   height: 3rem;
   margin-top: 2.7rem;
+  border: 0 none;
   cursor: pointer;
 `;
 
@@ -59,23 +61,77 @@ export const Notification = styled.button`
   background-color: #fff;
   color: #062e70;
   border-radius: 50%;
+  border: 0 none;
   width: 3rem;
   height: 3rem;
   align-items: center;
   justify-content: center;
   font-size: 1rem;
   margin-top: 2.7rem;
+  box-shadow: 5px 5px 20px rgba(0, 0, 0, 0.2);
+  cursor: pointer;
 `;
+
+export const ContentContainer = styled.div`
+  display: flex;
+  flex-direction: column;
+  margin: 0 0.5rem;
+  padding: 0 1rem;
+  gap: 1rem;
+`;
+
+export const BannerContainer = styled.div`
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-left: 3.2rem;
+  height: 100%;
+  width: 62%;
+  border-radius: 10px;
+  min-width: 500px;
+  box-sizing: border-box;
+  max-width: 100%;
+`;
+
+export const Banner = styled.img`
+  width: 100%;
+  height: 100%;
+  border-radius: 10px;
+`;
+
 export const ChartContainer = styled.div`
   display: flex;
   flex-direction: row;
-  margin: 0 0.5rem;
+  margin: 0 0;
+  padding: 0;
+  @media (max-width: 768px) {
+    margin: 0;
+    padding: 0;
+    width: 100%;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+  }
 `;
 
 export const ChartCard = styled.div`
   background-color: #fff;
   border-radius: 10px;
   max-width: max-content;
+  height: min-content;
+  padding: 2rem;
+  margin-left: 3rem;
+  margin-top: 2rem;
+  box-shadow: 4px 4px 10px rgba(0, 0, 0, 0.1);
+  flex-direction: row;
+  cursor: pointer;
+`;
+
+export const CompanyCard = styled.div`
+  background-color: #fff;
+  border-radius: 10px;
+  max-width: max-content;
+  height: min-content;
   padding: 1rem;
   margin-left: 3rem;
   margin-top: 2rem;

@@ -9,11 +9,13 @@ import {
   Toolbar,
   CssBaseline,
 } from '@mui/material';
-import HomeIcon from '@mui/icons-material/Home';
-import InfoIcon from '@mui/icons-material/Info';
-import ContactMailIcon from '@mui/icons-material/ContactMail';
-import LogoutIcon from '@mui/icons-material/Logout';
-import MenuIcon from '@mui/icons-material/Menu';
+import HomeIcon from '@mui/icons-material/HomeRounded';
+import ContactMailIcon from '@mui/icons-material/ContactMailRounded';
+import CompanyIcon from '@mui/icons-material/AddBusinessRounded';
+import LogoutIcon from '@mui/icons-material/LogoutRounded';
+import MenuIcon from '@mui/icons-material/MenuRounded';
+import StudentIcon from '@mui/icons-material/SchoolRounded';
+import InternshipIcon from '@mui/icons-material/AssuredWorkloadRounded';
 import { useNavigate } from 'react-router';
 
 interface HamburgerMenuProps {
@@ -28,14 +30,11 @@ const HamburgerMenu: React.FC<HamburgerMenuProps> = ({
   const navigate = useNavigate();
 
   const handleLogout = () => {
-    if (window.confirm('Are you sure you want to logout?')) {
+    if (window.confirm('Tem certeza que deseja sair de CampusLink?')) {
       localStorage.removeItem('token');
       localStorage.removeItem('userId');
       navigate('/');
     }
-    // localStorage.removeItem('token');
-    // localStorage.removeItem('userId');
-    // navigate('/');
   };
 
   return (
@@ -78,18 +77,32 @@ const HamburgerMenu: React.FC<HamburgerMenuProps> = ({
             {isExpanded && <ListItemText primary="Home" />}
           </ListItem>
 
-          <ListItem onClick={() => navigate('/about')}>
+          <ListItem onClick={() => navigate('/students')}>
             <ListItemIcon sx={{ color: '#fff' }}>
-              <InfoIcon />
+              <StudentIcon />
             </ListItemIcon>
-            {isExpanded && <ListItemText primary="About" />}
+            {isExpanded && <ListItemText primary="Alunos" />}
           </ListItem>
 
-          <ListItem onClick={() => navigate('/contact')}>
+          <ListItem onClick={() => navigate('/companies')}>
+            <ListItemIcon sx={{ color: '#fff' }}>
+              <CompanyIcon />
+            </ListItemIcon>
+            {isExpanded && <ListItemText primary="Empresas" />}
+          </ListItem>
+
+          <ListItem onClick={() => navigate('/internships')}>
+            <ListItemIcon sx={{ color: '#fff' }}>
+              <InternshipIcon />
+            </ListItemIcon>
+            {isExpanded && <ListItemText primary="Central de Estágios" />}
+          </ListItem>
+
+          <ListItem onClick={() => navigate('/profile')}>
             <ListItemIcon sx={{ color: '#fff' }}>
               <ContactMailIcon />
             </ListItemIcon>
-            {isExpanded && <ListItemText primary="Contact" />}
+            {isExpanded && <ListItemText primary="Perfil" />}
           </ListItem>
 
           <ListItem onClick={handleLogout}>

@@ -110,6 +110,15 @@ const PerformanceChart = () => {
         title: {
           display: false,
         },
+        ticks: {
+          callback: function (value: number | string) {
+            const numericValue =
+              typeof value === 'string' ? parseFloat(value) : value;
+            return Number.isInteger(numericValue)
+              ? numericValue
+              : Math.floor(numericValue);
+          },
+        },
       },
     },
   };
