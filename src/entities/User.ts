@@ -1,5 +1,5 @@
-export interface Task {
-  id: string; // Não está retornando o id no backend
+export interface User {
+  id: string;
   name: string;
   email: string;
   registration: string;

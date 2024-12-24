@@ -86,31 +86,36 @@ export const BannerContainer = styled.div`
   align-items: center;
   margin-left: 3.2rem;
   height: 100%;
-  width: 62%;
+  width: 66.66%;
   border-radius: 10px;
   min-width: 500px;
-  box-sizing: border-box;
   max-width: 100%;
+  box-sizing: border-box;
+  @media (max-width: 768px) {
+    width: 100%;
+    margin-left: 0;
+  }
 `;
 
 export const Banner = styled.img`
   width: 100%;
-  height: 100%;
+  height: auto;
   border-radius: 10px;
 `;
 
 export const ChartContainer = styled.div`
   display: flex;
   flex-direction: row;
+  gap: 1rem;
+  width: 66.66%;
   margin: 0 0;
+  margin-left: 3.2rem;
   padding: 0;
+  justify-content: space-between;
   @media (max-width: 768px) {
-    margin: 0;
-    padding: 0;
     width: 100%;
-    flex-direction: column;
     align-items: center;
-    justify-content: center;
+    flex-direction: column;
   }
 `;
 
@@ -120,11 +125,13 @@ export const ChartCard = styled.div`
   max-width: max-content;
   height: min-content;
   padding: 2rem;
-  margin-left: 3rem;
   margin-top: 2rem;
   box-shadow: 4px 4px 10px rgba(0, 0, 0, 0.1);
   flex-direction: row;
   cursor: pointer;
+  @media (max-width: 768px) {
+    width: 100%;
+  }
 `;
 
 export const CompanyCard = styled.div`
@@ -133,11 +140,13 @@ export const CompanyCard = styled.div`
   max-width: max-content;
   height: min-content;
   padding: 1rem;
-  margin-left: 3rem;
   margin-top: 2rem;
   box-shadow: 4px 4px 10px rgba(0, 0, 0, 0.1);
   flex-direction: row;
   cursor: pointer;
+  @media (max-width: 768px) {
+    width: 100%;
+  }
 `;
 
 export const ChartTitle = styled.h3`
