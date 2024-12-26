@@ -1,12 +1,12 @@
 export interface Student {
   id: string;
-  studentNumber: string;
+  student_number: string;
   name: string;
   email: string;
   birth: string;
   phone: string;
   address: string;
   course: string;
-  createdAt: string;
-  updatedAt: string;
+  created_at: string;
+  updated_at: string;
 }

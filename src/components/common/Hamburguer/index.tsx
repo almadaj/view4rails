@@ -16,6 +16,7 @@ import LogoutIcon from '@mui/icons-material/LogoutRounded';
 import MenuIcon from '@mui/icons-material/MenuRounded';
 import StudentIcon from '@mui/icons-material/SchoolRounded';
 import InternshipIcon from '@mui/icons-material/AssuredWorkloadRounded';
+import AdminIcon from '@mui/icons-material/SupervisorAccountRounded';
 import { useNavigate } from 'react-router';
 
 interface HamburgerMenuProps {
@@ -96,6 +97,13 @@ const HamburgerMenu: React.FC<HamburgerMenuProps> = ({
               <InternshipIcon />
             </ListItemIcon>
             {isExpanded && <ListItemText primary="Central de Estágios" />}
+          </ListItem>
+
+          <ListItem onClick={() => navigate('/users')}>
+            <ListItemIcon sx={{ color: '#fff' }}>
+              <AdminIcon />
+            </ListItemIcon>
+            {isExpanded && <ListItemText primary="Administração" />}
           </ListItem>
 
           <ListItem onClick={() => navigate('/profile')}>
