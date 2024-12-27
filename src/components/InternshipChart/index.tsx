@@ -57,7 +57,6 @@ const PerformanceChart = () => {
             const itemMonth = itemDate.toLocaleString('pt-BR', {
               month: 'long',
             });
-            console.log(`Item Date: ${itemDate}, Month: ${itemMonth}`);
             return itemMonth.toLowerCase() === month.toLowerCase();
           });
           return countsForMonth.length;

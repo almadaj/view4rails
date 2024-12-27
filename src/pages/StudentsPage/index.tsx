@@ -1,40 +1,23 @@
-import React, { useEffect, useState } from 'react';
+import React from 'react';
 import Container from 'src/components/common/Container';
 import { NavBar } from 'src/components/common/NavBar';
-import { Student } from 'src/entities/Student';
-import studentService from 'src/services/studentService';
+import StudentsList from 'src/components/StudentsList';
+import { AddButton, Header, PageTitle } from './styles';
+import AddCircleIcon from '@mui/icons-material/AddCircle';
 
 const StudentsPage = () => {
-  document.title = 'Estudentes | CampusLink';
-  const [students, setStudents] = useState<Student[]>([]);
+  document.title = 'Estudantes | CampusLink';
 
-  useEffect(() => {
-    const fetchStudents = async () => {
-      const students = await studentService.getStudents();
-      setStudents(students);
-    };
-    fetchStudents();
-  }, []);
   return (
     <Container>
       <NavBar />
-      <h1>Alunos Cadastrados</h1>
-      {students
-        .sort((a, b) => a.name.localeCompare(b.name))
-        .map((student) => {
-          return (
-            <div key={student.id}>
-              <h2>{student.name}</h2>
-              <p>
-                {student.student_number
-                  ? student.student_number
-                  : 'Sem Identificaçao'}
-              </p>
-              <p>{student.email}</p>
-              <p>{student.course}</p>
-            </div>
-          );
-        })}
+      <Header>
+        <PageTitle>Alunos Cadastrados</PageTitle>
+        <AddButton>
+          <AddCircleIcon style={{ paddingRight: 5 }} /> Cadastrar Aluno
+        </AddButton>
+      </Header>
+      <StudentsList />
     </Container>
   );
 };
