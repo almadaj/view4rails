@@ -26,7 +26,7 @@ const StandardModal: React.FC<StandardModalProps> = ({
   children,
   onClose,
   onConfirm,
-  confirmText = 'Confirmar',
+  confirmText,
 }) => {
   if (!isOpen) return null;
 
@@ -39,7 +39,9 @@ const StandardModal: React.FC<StandardModalProps> = ({
         </Header>
         <Content>{children}</Content>
         <Footer>
-          <Button onClick={onConfirm}>{confirmText}</Button>
+          {onConfirm ? (
+            <Button onClick={onConfirm}>{confirmText}</Button>
+          ) : null}
         </Footer>
       </ModalContainer>
     </Backdrop>
