@@ -154,3 +154,28 @@ export const ChartTitle = styled.h3`
   margin: 0;
   padding: 10px 15px;
 `;
+
+export const ModalContainer = styled.div`
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  padding: 1rem;
+  margin: 1rem;
+  border-radius: 10px;
+  background-color: #fff;
+  align-items: center;
+  justify-content: center;
+`;
+
+export const SectorButton = styled.button`
+  background-color: #062e70;
+  color: white;
+  font-size: 1.05rem;
+  font-weight: bold;
+  border-radius: 15px;
+  padding: 0.7rem 1.5rem;
+  height: 3rem;
+  width: 50%;
+  border: 0 none;
+  cursor: pointer;
+`;

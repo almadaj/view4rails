@@ -15,15 +15,19 @@ import {
   BannerContainer,
   Banner,
   ContentContainer,
+  ModalContainer,
+  SectorButton,
 } from './styles';
 import Notifications from '@mui/icons-material/Notifications';
 import { useNavigate } from 'react-router-dom';
 import userService from 'src/services/userService';
 import InternshipChart from 'src/components/InternshipChart';
 import CompanyChart from 'src/components/CompanyChart';
+import StandardModal from 'src/components/common/StandardModal';
 const Home = () => {
   const navigate = useNavigate();
   const [userName, setUserName] = useState<string>('');
+  const [isModalOpen, setIsModalOpen] = useState(false);
 
   useEffect(() => {
     document.title = 'Home | CampusLink';
@@ -46,6 +50,10 @@ const Home = () => {
     };
     fetchUser();
   }, [navigate]);
+
+  const handleModal = () => {
+    setIsModalOpen(!isModalOpen);
+  };
   return (
     <Container>
       <Header>
@@ -54,7 +62,7 @@ const Home = () => {
           <Title>{userName}</Title>
         </GreetingContainer>
         <RightContainer>
-          <AddButton>Adicionar</AddButton>
+          <AddButton onClick={handleModal}>Adicionar</AddButton>
           <Notification>
             <Notifications />
           </Notification>
@@ -80,6 +88,26 @@ const Home = () => {
           </CompanyCard>
         </ChartContainer>
       </ContentContainer>
+      <StandardModal
+        isOpen={isModalOpen}
+        title="Cadastrar Novo Aluno"
+        onClose={handleModal}
+      >
+        <ModalContainer>
+          <SectorButton onClick={() => navigate('/students')}>
+            Novo Aluno
+          </SectorButton>
+          <SectorButton onClick={() => navigate('/users')}>
+            Novo Funcionário
+          </SectorButton>
+          <SectorButton onClick={() => navigate('/companies')}>
+            Nova Empresa
+          </SectorButton>
+          <SectorButton onClick={() => navigate('/internships')}>
+            Novo Estágio
+          </SectorButton>
+        </ModalContainer>
+      </StandardModal>
     </Container>
   );
 };
