@@ -115,9 +115,9 @@ const StudentsPage = () => {
       alert('E-mail inválido!');
       return;
     }
-    alert('Aluno registrado com sucesso!');
     try {
       await studentService.createStudent(formData);
+      alert('Aluno registrado com sucesso!');
       console.log('Aluno registrado:', formData);
       handleModal();
     } catch (error) {

@@ -17,6 +17,7 @@ import { User } from 'src/entities/User';
 import { Company } from 'src/entities/Company';
 import StandardModal from 'src/components/common/StandardModal';
 import userService from 'src/services/userService';
+import companyService from 'src/services/companyService';
 const CompaniesPage = () => {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [user, setUser] = useState<User>();
@@ -85,6 +86,31 @@ const CompaniesPage = () => {
     ) {
       alert('Preencha todos os campos obrigatórios!');
       return;
+    }
+    if (formData.cnpj.length < 18) {
+      alert('CNPJ inválido!');
+      return;
+    }
+
+    if (formData.cnpj) {
+      const isDoubled = await companyService.getCompanies();
+      const isDoubledCnpj = isDoubled.find(
+        (company: { cnpj: string | undefined }) =>
+          company.cnpj === formData.cnpj,
+      );
+      if (isDoubledCnpj) {
+        alert('CNPJ já cadastrado!');
+        return;
+      }
+
+      try {
+        await companyService.createCompany(formData);
+        alert('Empresa cadastrada com sucesso!');
+        setIsModalOpen(false);
+      } catch (error) {
+        console.log('Error in createCompany', error);
+        throw error;
+      }
     }
   };
 
