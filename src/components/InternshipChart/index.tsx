@@ -43,21 +43,58 @@ const PerformanceChart = () => {
     return months;
   };
 
+  // useEffect(() => {
+  //   const fetchChartData = async () => {
+  //     try {
+  //       const res = await internshipService.getInternships();
+  //       console.log('API Response:', res);
+  //       const months = getLastMonths();
+
+  //       const counts = months.map((month) => {
+  //         const countsForMonth = res.filter((item: any) => {
+  //           if (!item.start_date) return false;
+  //           const itemDate = new Date(item.start_date);
+  //           const itemMonth = itemDate.toLocaleString('pt-BR', {
+  //             month: 'long',
+  //           });
+  //           return itemMonth.toLowerCase() === month.toLowerCase();
+  //         });
+  //         return countsForMonth.length;
+  //       });
+
+  //       console.log('Monthly Counts:', counts);
+  //       setMonthlyCounts(counts);
+  //     } catch (error) {
+  //       console.error('Error in fetchChartData:', error);
+  //     }
+  //   };
+
+  //   fetchChartData();
+  // }, []);
   useEffect(() => {
     const fetchChartData = async () => {
       try {
         const res = await internshipService.getInternships();
         console.log('API Response:', res);
-        const months = getLastMonths();
+        const today = new Date();
 
-        const counts = months.map((month) => {
+        const months = getLastMonths().map((month, index) => {
+          const monthDate = new Date(today);
+          monthDate.setMonth(today.getMonth() - (4 - index));
+          return { name: month, year: monthDate.getFullYear() };
+        });
+
+        const counts = months.map(({ name, year }) => {
           const countsForMonth = res.filter((item: any) => {
             if (!item.start_date) return false;
             const itemDate = new Date(item.start_date);
             const itemMonth = itemDate.toLocaleString('pt-BR', {
               month: 'long',
             });
-            return itemMonth.toLowerCase() === month.toLowerCase();
+            return (
+              itemMonth.toLowerCase() === name.toLowerCase() &&
+              itemDate.getFullYear() === year
+            );
           });
           return countsForMonth.length;
         });

@@ -115,6 +115,19 @@ const StudentsPage = () => {
       alert('E-mail inválido!');
       return;
     }
+
+    if (formData.student_number) {
+      const isDoubled = await studentService.getStudents();
+      const isDoubledStudentNumber = isDoubled.find(
+        (student: { student_number: string | undefined }) =>
+          student.student_number === formData.student_number,
+      );
+      if (isDoubledStudentNumber) {
+        alert('Matrícula já cadastrada!');
+        return;
+      }
+    }
+
     try {
       await studentService.createStudent(formData);
       alert('Aluno registrado com sucesso!');
