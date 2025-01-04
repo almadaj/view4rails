@@ -10,9 +10,11 @@ import {
   StudentName,
   StudentNumber,
 } from './styles';
+import { useNavigate } from 'react-router';
 
 const StudentsList = () => {
   const [students, setStudents] = useState<Student[]>([]);
+  const navigate = useNavigate();
   useEffect(() => {
     const fetchStudents = async () => {
       const students = await studentService.getStudents();
@@ -44,7 +46,9 @@ const StudentsList = () => {
                 <InfoContainer>
                   <InfoTitle>{student.course}</InfoTitle>
                 </InfoContainer>
-                <InfoContainer onClick={() => console.log('Ver Status')}>
+                <InfoContainer
+                  onClick={() => navigate(`/students/${student.id}`)}
+                >
                   <Button>
                     <ArrowDownIcon />
                     Ver Status

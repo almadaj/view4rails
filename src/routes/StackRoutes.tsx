@@ -5,6 +5,7 @@ import Home from '../pages/Home';
 import Hamburguer from 'src/components/common/Hamburguer';
 import StudentsPage from 'src/pages/StudentsPage';
 import CompaniesPage from 'src/pages/CompaniesPage';
+import StudentProfile from 'src/pages/StudentProfile';
 
 const LayoutWithNavbar = ({ children }: { children: React.ReactNode }) => {
   const [isExpanded, setIsExpanded] = useState(false);
@@ -46,6 +47,14 @@ const StackRoutes = () => {
           element={
             <LayoutWithNavbar>
               <StudentsPage />
+            </LayoutWithNavbar>
+          }
+        />
+        <Route
+          path="/students/:id"
+          element={
+            <LayoutWithNavbar>
+              <StudentProfile />
             </LayoutWithNavbar>
           }
         />

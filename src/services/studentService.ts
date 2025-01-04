@@ -9,7 +9,18 @@ const studentService = {
       const res = await api.get('/students', headers);
       return res.data;
     } catch (error) {
-      console.log('Error in getCompanies', error);
+      console.log('Error in getStudents', error);
+      throw error;
+    }
+  },
+
+  showStudent: async (id: string) => {
+    try {
+      const headers = getTokenAndHeaders();
+      const res = await api.get(`/students/${id}`, headers);
+      return res.data;
+    } catch (error) {
+      console.log('Error in getStudentById', error);
       throw error;
     }
   },
