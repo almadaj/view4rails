@@ -3,21 +3,18 @@ import { useNavigate, useParams } from 'react-router-dom';
 import { NavBar } from 'src/components/common/NavBar';
 import { Student } from 'src/entities/Student';
 import studentService from 'src/services/studentService';
-import {
-  Arrow,
-  BackButton,
-  Content,
-  InfoCard,
-  InfoItem,
-  MainContainer,
-  ProfileHeader,
-  SubText,
-} from './styles';
+import { Arrow, BackButton, MainContainer } from './styles';
 import Container from 'src/components/common/Container';
+import { Internship } from 'src/entities/Internship';
+import companyService from 'src/services/companyService';
+import StudentProfileCard from 'src/components/StudentProfileCard';
+import StudentHistoryCard from 'src/components/StudentProfileCard/StudentHistoryCard';
 
 const StudentProfile = () => {
   const { id } = useParams();
   const [student, setStudent] = useState<Student | null>(null);
+  const [internships, setInternships] = useState<Internship[]>([]);
+  const [company, setCompany] = useState<Record<string, string>>({});
   const name = student?.name?.split(' ');
   document.title = `${name?.[0]} | CampusLink`;
   const navigate = useNavigate();
@@ -26,32 +23,37 @@ const StudentProfile = () => {
     const fetchStudent = async () => {
       try {
         if (!id) throw new Error('ID não fornecido!');
-        const data = await studentService.showStudent(id);
-        setStudent(data);
+
+        const studentData = await studentService.showStudent(id);
+        setStudent(studentData);
+
+        const internshipsData = await studentService.getStudentInternships(id);
+        setInternships(internshipsData);
+
+        const companyNames: Record<string, string> = {};
+        for (const internship of internshipsData) {
+          if (!companyNames[internship.company_id]) {
+            try {
+              const company = await companyService.showCompany(
+                internship.company_id,
+              );
+              companyNames[internship.company_id] = company.name;
+            } catch (err) {
+              console.error(
+                `Erro ao buscar dados da empresa (ID: ${internship.company_id}):`,
+                err,
+              );
+            }
+          }
+        }
+        setCompany(companyNames);
       } catch (err) {
-        console.error('Erro ao buscar estudante:', err);
+        console.error('Erro ao buscar dados do estudante e estágios:', err);
       }
     };
+
     fetchStudent();
   }, [id]);
-
-  const formatCreatedAt = (date: string | undefined) => {
-    if (!date) return 'Não fornecido';
-    const [year, month] = date.split('-');
-    return `Cadastrado em ${month}/${year}`;
-  };
-
-  const formatBirth = (date: string | undefined) => {
-    if (!date) return 'Não fornecido';
-    const [year, month, day] = date.split('-');
-    return `${day}/${month}/${year}`;
-  };
-
-  const formatStudentNumber = (studentNumber: string | undefined) => {
-    if (!studentNumber) return 'Sem Identificação';
-    const numberString = studentNumber.toString();
-    return `${numberString.slice(0, 2)}.${numberString.slice(2, 3)}.${numberString.slice(3)}`;
-  };
 
   return (
     <Container>
@@ -60,32 +62,12 @@ const StudentProfile = () => {
         <BackButton onClick={() => navigate('/students')}>
           <Arrow>➔</Arrow>
         </BackButton>
-        <Content>
-          <ProfileHeader>{student?.name || 'Nome não fornecido'}</ProfileHeader>
-          <SubText>{formatCreatedAt(student?.created_at)}</SubText>
-          <InfoCard>
-            <InfoItem>
-              <span>Matrícula:</span>{' '}
-              {formatStudentNumber(student?.student_number) || 'Não fornecido'}
-            </InfoItem>
-            <InfoItem>
-              <span>Email:</span> {student?.email || 'Não fornecido'}
-            </InfoItem>
-            <InfoItem>
-              <span>Curso:</span> {student?.course || 'Não fornecido'}
-            </InfoItem>
-            <InfoItem>
-              <span>Telefone:</span> {student?.phone || 'Não fornecido'}
-            </InfoItem>
-            <InfoItem>
-              <span>Endereço:</span> {student?.address || 'Não fornecido'}
-            </InfoItem>
-            <InfoItem>
-              <span>Data de Nascimento:</span>{' '}
-              {formatBirth(student?.birth) || 'Não fornecido'}
-            </InfoItem>
-          </InfoCard>
-        </Content>
+        <StudentProfileCard student={student} />
+        <StudentHistoryCard
+          internships={internships}
+          student={student}
+          company={company}
+        />
       </MainContainer>
     </Container>
   );

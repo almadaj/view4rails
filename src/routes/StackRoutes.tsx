@@ -7,7 +7,7 @@ import StudentsPage from 'src/pages/StudentsPage';
 import CompaniesPage from 'src/pages/CompaniesPage';
 import StudentProfile from 'src/pages/StudentProfile';
 
-const LayoutWithNavbar = ({ children }: { children: React.ReactNode }) => {
+const LayoutWithHamburguer = ({ children }: { children: React.ReactNode }) => {
   const [isExpanded, setIsExpanded] = useState(false);
   const toggleDrawer = () => {
     setIsExpanded((prev) => !prev);
@@ -37,33 +37,33 @@ const StackRoutes = () => {
         <Route
           path="/home"
           element={
-            <LayoutWithNavbar>
+            <LayoutWithHamburguer>
               <Home />
-            </LayoutWithNavbar>
+            </LayoutWithHamburguer>
           }
         />
         <Route
           path="/students"
           element={
-            <LayoutWithNavbar>
+            <LayoutWithHamburguer>
               <StudentsPage />
-            </LayoutWithNavbar>
+            </LayoutWithHamburguer>
           }
         />
         <Route
           path="/students/:id"
           element={
-            <LayoutWithNavbar>
+            <LayoutWithHamburguer>
               <StudentProfile />
-            </LayoutWithNavbar>
+            </LayoutWithHamburguer>
           }
         />
         <Route
           path="/companies"
           element={
-            <LayoutWithNavbar>
+            <LayoutWithHamburguer>
               <CompaniesPage />
-            </LayoutWithNavbar>
+            </LayoutWithHamburguer>
           }
         />
       </Routes>

@@ -48,6 +48,17 @@ const studentService = {
       throw error;
     }
   },
+
+  getStudentInternships: async (id: string) => {
+    try {
+      const headers = getTokenAndHeaders();
+      const res = await api.get(`/students/${id}/internships`, headers);
+      return res.data;
+    } catch (error) {
+      console.log('Error in getStudentInternships', error);
+      throw error;
+    }
+  },
 };
 
 export default studentService;
