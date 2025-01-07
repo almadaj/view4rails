@@ -67,3 +67,34 @@ export const Button = styled.button`
     width: 60%;
   }
 `;
+
+export const PaginationContainer = styled.div`
+  display: flex;
+  justify-content: flex-end;
+  margin-right: 3rem;
+`;
+
+export const PagesContainer = styled.div`
+  display: flex;
+  padding-left: 10px;
+  padding-right: 10px;
+  font-weight: bold;
+  color: rgb(108, 108, 108);
+  align-items: center;
+  justify-content: center;
+`;
+
+export const PageButton = styled.button`
+  background-color: #062e70;
+  color: white;
+  border: none;
+  padding: 10px 15px;
+  margin: 0 5px;
+  border-radius: 10px;
+  cursor: pointer;
+  font-weight: bold;
+  &:disabled {
+    background-color: #ccc;
+    cursor: not-allowed;
+  }
+`;
