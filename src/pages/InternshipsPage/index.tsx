@@ -16,11 +16,14 @@ import {
 import studentService from 'src/services/studentService';
 import { Student } from 'src/entities/Student';
 import { useNavigate } from 'react-router-dom';
+import InternshipForm from 'src/components/InternshipForm';
+// import InternshipForm from 'src/components/InternshipForm';
 
 const InternshipsPage = () => {
   const [search, setSearch] = useState('');
   const [students, setStudents] = useState<Student[]>([]);
   const [filteredStudents, setFilteredStudents] = useState<Student[]>([]);
+  const [isModalOpen, setModalOpen] = useState(false);
   const navigate = useNavigate();
 
   document.title = 'Central de Estágios | CampusLink';
@@ -52,6 +55,10 @@ const InternshipsPage = () => {
     }
   }, [search, students]);
 
+  const handleModal = () => {
+    setModalOpen(!isModalOpen);
+  };
+
   const formatStudentNumber = (studentNumber: string) => {
     if (!studentNumber) return 'Sem Identificação';
     const numberString = studentNumber.toString();
@@ -67,9 +74,8 @@ const InternshipsPage = () => {
           <SearchBar
             value={search}
             onChange={(e) => setSearch(e.target.value)}
-            onSearch={() => {
-              console.log(' ');
-            }}
+            buttonText="Cadastrar"
+            onSearch={handleModal}
           />
           {search && filteredStudents.length === 0 && (
             <ResultsText>
@@ -93,6 +99,15 @@ const InternshipsPage = () => {
                 </ResultItem>
               ))}
             </ResultsList>
+          )}
+          {isModalOpen && (
+            <InternshipForm
+              isModalOpen={isModalOpen}
+              handleModal={handleModal}
+              onConfirm={() => {
+                console.log('Confirmou');
+              }}
+            />
           )}
         </Content>
       </MainContainer>

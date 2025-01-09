@@ -1,4 +1,5 @@
 import styled from 'styled-components';
+// import { ReactInputMask } from 'react-input-mask';
 
 export const MainContainer = styled.div`
   display: flex;
@@ -71,3 +72,51 @@ export const NumberText = styled.li`
   color: rgb(108, 108, 108);
   font-size: 1rem;
 `;
+
+export const Form = styled.form`
+  background-color: #ffffff;
+  padding: 20px;
+  border-radius: 15px;
+  width: 400px;
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+`;
+
+export const FormGroup = styled.div`
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+`;
+
+export const Label = styled.label`
+  font-size: 14px;
+  font-weight: bold;
+  color: #333333;
+`;
+
+export const Input = styled.input`
+  padding: 8px 12px;
+  border: 1px solid #dddddd;
+  border-radius: 4px;
+  font-size: 14px;
+  color: #555555;
+
+  &:focus {
+    border-color: #007bff;
+    outline: none;
+  }
+`;
+
+// export const StyledInput = styled(ReactInputMask)`
+//   padding: 8px 12px;
+//   border: 1px solid #dddddd;
+//   border-radius: 4px;
+//   font-size: 14px;
+//   color: #555555;
+
+//   &:focus {
+//     border-color: #007bff;
+//     outline: none;
+//   }
+// `;
