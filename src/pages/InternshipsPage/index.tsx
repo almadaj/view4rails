@@ -17,13 +17,15 @@ import studentService from 'src/services/studentService';
 import { Student } from 'src/entities/Student';
 import { useNavigate } from 'react-router-dom';
 import InternshipForm from 'src/components/InternshipForm';
-// import InternshipForm from 'src/components/InternshipForm';
+import { User } from 'src/entities/User';
+import userService from 'src/services/userService';
 
 const InternshipsPage = () => {
   const [search, setSearch] = useState('');
   const [students, setStudents] = useState<Student[]>([]);
   const [filteredStudents, setFilteredStudents] = useState<Student[]>([]);
   const [isModalOpen, setModalOpen] = useState(false);
+  const [user, setUser] = useState<User>();
   const navigate = useNavigate();
 
   document.title = 'Central de Estágios | CampusLink';
@@ -37,17 +39,33 @@ const InternshipsPage = () => {
         console.error('Failed to fetch students:', error);
       }
     };
-
+    const fetchUser = async () => {
+      try {
+        const token = localStorage.getItem('userId');
+        if (!token) {
+          navigate('/');
+          throw new Error('Token not found');
+        }
+        const user = await userService.getUserById(token);
+        setUser(user);
+        if (!user) {
+          navigate('/');
+          throw new Error('User not found');
+        }
+      } catch (error) {
+        console.log('Error in fetchUser', error);
+      }
+    };
+    fetchUser();
     fetchStudents();
-  }, []);
+  }, [navigate]);
 
   useEffect(() => {
     if (search.trim()) {
       const results = students.filter(
         (student) =>
           student.name.toLowerCase().includes(search.toLowerCase()) ||
-          student.student_number?.includes(search) ||
-          student.course?.toLowerCase().includes(search.toLowerCase()),
+          student.student_number?.includes(search),
       );
       setFilteredStudents(results);
     } else {
@@ -56,6 +74,10 @@ const InternshipsPage = () => {
   }, [search, students]);
 
   const handleModal = () => {
+    if (!user?.role) {
+      alert('Você não tem permissão para cadastrar estágios!');
+      return;
+    }
     setModalOpen(!isModalOpen);
   };
 
@@ -104,9 +126,6 @@ const InternshipsPage = () => {
             <InternshipForm
               isModalOpen={isModalOpen}
               handleModal={handleModal}
-              onConfirm={() => {
-                console.log('Confirmou');
-              }}
             />
           )}
         </Content>

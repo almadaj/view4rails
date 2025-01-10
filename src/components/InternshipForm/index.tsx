@@ -10,17 +10,16 @@ import {
 } from './styles';
 import studentService from 'src/services/studentService';
 import companyService from 'src/services/companyService';
+import internshipService from 'src/services/internshipService';
+import { User } from 'src/entities/User';
+import { useNavigate } from 'react-router-dom';
+import userService from 'src/services/userService';
 
 interface InternshipFormProps {
   isModalOpen: boolean;
   handleModal: () => void;
-  onConfirm: () => void;
 }
-const InternshipForm = ({
-  isModalOpen,
-  handleModal,
-  onConfirm,
-}: InternshipFormProps) => {
+const InternshipForm = ({ isModalOpen, handleModal }: InternshipFormProps) => {
   const [formData, setFormData] = useState({
     student_id: '',
     company_id: '',
@@ -45,6 +44,8 @@ const InternshipForm = ({
   const [filteredCompanies, setFilteredCompanies] = useState<
     { id: string; name: string }[]
   >([]);
+  const [user, setUser] = useState<User>();
+  const navigate = useNavigate();
 
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
@@ -60,9 +61,26 @@ const InternshipForm = ({
         console.error('Error fetching suggestions:', error);
       }
     };
-
+    const fetchUser = async () => {
+      try {
+        const token = localStorage.getItem('userId');
+        if (!token) {
+          navigate('/');
+          throw new Error('Token not found');
+        }
+        const user = await userService.getUserById(token);
+        setUser(user);
+        if (!user) {
+          navigate('/');
+          throw new Error('User not found');
+        }
+      } catch (error) {
+        console.log('Error in fetchUser', error);
+      }
+    };
+    fetchUser();
     fetchSuggestions();
-  }, []);
+  }, [navigate]);
 
   useEffect(() => {
     if (formData.student_name.trim()) {
@@ -108,13 +126,45 @@ const InternshipForm = ({
     setFilteredCompanies([]);
   };
 
+  const handleCreateInternship = async () => {
+    try {
+      const { student_id, company_id } = formData;
+      if (
+        !student_id ||
+        !company_id ||
+        !formData.salary ||
+        !formData.workload ||
+        !formData.start_date
+      ) {
+        alert('Preencha todos os campos obrigatórios!');
+        return;
+      }
+      if (!user?.role) {
+        alert('Você não tem permissão para cadastrar estágios!');
+        return;
+      }
+      await internshipService.createInternship({
+        student_id,
+        company_id,
+        salary: formData.salary,
+        workload: formData.workload,
+        start_date: formData.start_date,
+        end_date: formData.end_date || null,
+      });
+      alert('Estágio cadastrado com sucesso!');
+      handleModal();
+    } catch (error) {
+      console.error('Failed to create internship:', error);
+    }
+  };
+
   return (
     <>
       {isModalOpen && (
         <StandardModal
           isOpen={isModalOpen}
           title="Cadastrar Novo Estágio"
-          onConfirm={onConfirm}
+          onConfirm={handleCreateInternship}
           confirmText="Cadastrar Estágio"
           onClose={handleModal}
         >
@@ -150,28 +200,30 @@ const InternshipForm = ({
                 value={formData.company_name}
                 onChange={handleInputChange}
                 placeholder="Digite o CNPJ da empresa"
+                autoComplete="off"
               />
               {filteredCompanies.length > 0 && (
-                <ul>
+                <Dropdown>
                   {filteredCompanies.map((company) => (
-                    <li
+                    <DropdownItem
                       key={company.id}
                       onClick={() => handleCompanySelect(company)}
                     >
                       {company.name}
-                    </li>
+                    </DropdownItem>
                   ))}
-                </ul>
+                </Dropdown>
               )}
             </FormGroup>
             <FormGroup>
               <Label>Salário Mensal:</Label>
               <Input
-                type="text"
+                type="number"
                 name="salary"
                 value={formData.salary}
                 onChange={handleInputChange}
                 placeholder="Digite o salário mensal"
+                autoComplete="off"
               />
             </FormGroup>
             <FormGroup>

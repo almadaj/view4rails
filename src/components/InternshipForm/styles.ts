@@ -53,19 +53,19 @@ export const Dropdown = styled.ul`
   position: absolute;
   z-index: 1000;
   background-color: white;
-  border: 1px solid #ccc;
-  border-radius: 4px;
-  width: 30%;
-  max-height: 150px;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  width: 25%;
+  max-height: 200px;
   overflow-y: auto;
   list-style: none;
-  padding: 0;
-  margin: 0;
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
+  padding: 4px 0;
+  margin-top: 60px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
 `;
 
 export const DropdownItem = styled.li`
-  padding: 8px 12px;
+  padding: 4px 12px;
   cursor: pointer;
   &:hover {
     background-color: #f5f5f5;
