@@ -29,8 +29,8 @@ const Home = () => {
   const [userName, setUserName] = useState<string>('');
   const [isModalOpen, setIsModalOpen] = useState(false);
 
+  document.title = 'Home | CampusLink';
   useEffect(() => {
-    document.title = 'Home | CampusLink';
     const fetchUser = async () => {
       try {
         const token = localStorage.getItem('userId');

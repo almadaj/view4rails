@@ -69,6 +69,7 @@ export const Input = styled.input`
   border: 1px solid #ccc;
   border-radius: 15px;
   font-size: 1rem;
+  color: rgb(95, 95, 95);
   &::placeholder {
     color: #c5c5c5;
   }

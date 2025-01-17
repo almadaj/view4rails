@@ -26,6 +26,16 @@ const userService = {
       throw error;
     }
   },
+  getUsers: async () => {
+    try {
+      const headers = getTokenAndHeaders();
+      const res = await api.get('/users', headers);
+      return res.data;
+    } catch (error) {
+      console.log('Error in getUsers', error);
+      throw error;
+    }
+  },
 };
 
 export default userService;
