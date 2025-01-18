@@ -107,6 +107,7 @@ const CompaniesPage = () => {
         await companyService.createCompany(formData);
         alert('Empresa cadastrada com sucesso!');
         setIsModalOpen(false);
+        window.location.reload();
       } catch (error) {
         console.log('Error in createCompany', error);
         throw error;

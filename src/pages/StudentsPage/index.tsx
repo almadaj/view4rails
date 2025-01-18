@@ -132,6 +132,7 @@ const StudentsPage = () => {
       await studentService.createStudent(formData);
       alert('Aluno registrado com sucesso!');
       console.log('Aluno registrado:', formData);
+      window.location.reload();
       handleModal();
     } catch (error) {
       console.log('Error in registerNewStudent', error);

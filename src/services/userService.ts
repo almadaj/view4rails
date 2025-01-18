@@ -36,6 +36,16 @@ const userService = {
       throw error;
     }
   },
+  toggleAdminUser: async (id: string) => {
+    try {
+      const headers = getTokenAndHeaders();
+      const res = await api.put(`/users/${id}/admin`, {}, headers);
+      return res.data;
+    } catch (error) {
+      console.log('Error in toggleAdminUser', error);
+      throw error;
+    }
+  },
 };
 
 export default userService;
