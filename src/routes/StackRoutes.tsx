@@ -84,6 +84,14 @@ const StackRoutes = () => {
             </LayoutWithHamburguer>
           }
         />
+        <Route
+          path="/users/:id"
+          element={
+            <LayoutWithHamburguer>
+              <UserPage />
+            </LayoutWithHamburguer>
+          }
+        />
       </Routes>
     </Router>
   );
