@@ -8,6 +8,7 @@ import CompaniesPage from 'src/pages/CompaniesPage';
 import StudentProfile from 'src/pages/StudentProfile';
 import InternshipsPage from 'src/pages/InternshipsPage';
 import UserPage from 'src/pages/UsersPage';
+import ProfilePage from 'src/pages/ProfilePage';
 
 const LayoutWithHamburguer = ({ children }: { children: React.ReactNode }) => {
   const [isExpanded, setIsExpanded] = useState(false);
@@ -85,10 +86,10 @@ const StackRoutes = () => {
           }
         />
         <Route
-          path="/users/:id"
+          path="/profile"
           element={
             <LayoutWithHamburguer>
-              <UserPage />
+              <ProfilePage />
             </LayoutWithHamburguer>
           }
         />
