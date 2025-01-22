@@ -9,15 +9,21 @@ import {
   SubTitle,
   LogoHorizontal,
   Error,
+  ToggleButton,
+  InputWrapper,
 } from './styles';
 import banner from '../../assets/images/illustration-login.png';
 import logo from '../../assets/images/logo-u.webp';
 import { useNavigate } from 'react-router-dom';
 import userService from 'src/services/userService';
+import VisibilityOffRoundedIcon from '@mui/icons-material/VisibilityOffRounded';
+import VisibilityRoundedIcon from '@mui/icons-material/VisibilityRounded';
+
 const Login = () => {
   const navigate = useNavigate();
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
+  const [showPassword, setShowPassword] = useState(false);
   const [error, setError] = useState('');
 
   const validateEmail = (email: string) => {
@@ -47,6 +53,10 @@ const Login = () => {
     }
   };
 
+  const togglePasswordVisibility = () => {
+    setShowPassword(!showPassword);
+  };
+
   return (
     <Container>
       <Banner src={banner} />
@@ -55,18 +65,27 @@ const Login = () => {
         <Title>CampusLink</Title>
         <SubTitle>Estágios Unichristus</SubTitle>
         {error ? <Error>{error}</Error> : null}
-        <Input
-          type="email"
-          placeholder="E-mail"
-          value={email}
-          onChange={(e) => setEmail(e.target.value)}
-        />
-        <Input
-          type="password"
-          placeholder="Senha"
-          value={password}
-          onChange={(e) => setPassword(e.target.value)}
-        />
+        <InputWrapper>
+          <Input
+            type="email"
+            placeholder="E-mail"
+            value={email}
+            onChange={(e) => setEmail(e.target.value)}
+          />
+          <Input
+            type={showPassword ? 'text' : 'password'}
+            placeholder="Senha"
+            value={password}
+            onChange={(e) => setPassword(e.target.value)}
+          />
+          <ToggleButton onClick={togglePasswordVisibility}>
+            {showPassword ? (
+              <VisibilityOffRoundedIcon />
+            ) : (
+              <VisibilityRoundedIcon />
+            )}
+          </ToggleButton>
+        </InputWrapper>
         <Button onClick={() => handleLogin(email, password)}>Entrar</Button>
       </FormContainer>
     </Container>

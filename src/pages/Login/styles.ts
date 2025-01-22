@@ -86,16 +86,69 @@ export const Input = styled.input`
 `;
 
 export const Button = styled.button`
-  width: 300px;
+  width: 250px;
   padding: 0.5rem;
   background-color: #007bff;
   color: #fff;
   border: none;
   border-radius: 15px;
   font-size: 1rem;
+  align-items: center;
+  justify-content: center;
 
   @media (max-width: 785px) {
     width: 70%;
     padding: 10px;
+  }
+`;
+
+export const InputWrapper = styled.div`
+  position: relative;
+  width: 300px;
+  margin-bottom: 1rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+
+  @media (max-width: 785px) {
+    width: 70%;
+  }
+`;
+
+export const StyledInput = styled.input`
+  margin: auto;
+  width: 100%;
+  padding: 0.5rem;
+  padding-left: 1rem;
+  padding-right: 1rem;
+  border: 1px solid #ccc;
+  border-radius: 15px;
+  font-size: 1rem;
+  color: rgb(95, 95, 95);
+
+  &::placeholder {
+    color: #c5c5c5;
+  }
+
+  &:focus {
+    border-color: #007bff;
+    outline: none;
+  }
+`;
+
+export const ToggleButton = styled.button`
+  position: absolute;
+  top: 55%;
+  right: -3%;
+  /* transform: translateY(20%); */
+  background: none;
+  border: none;
+  cursor: pointer;
+  font-size: 1.2rem;
+  color: rgb(95, 95, 95);
+  display: flex;
+
+  &:focus {
+    outline: none;
   }
 `;
