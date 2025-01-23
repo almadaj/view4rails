@@ -5,6 +5,7 @@ import { NavBar } from 'src/components/common/NavBar';
 import { User } from 'src/entities/User';
 import userService from 'src/services/userService';
 import { Title } from './styles';
+import ProfileCard from 'src/components/ProfileCard';
 
 const ProfilePage = () => {
   const [user, setUser] = useState<User>();
@@ -30,13 +31,12 @@ const ProfilePage = () => {
     };
     fetchUser();
   }, [navigate]);
+
   return (
     <Container>
       <NavBar />
       <Title>Perfil</Title>
-      <p>Nome: {user?.name}</p>
-      <p>Nome: {user?.email}</p>
-      <p>Nome: {user?.registration}</p>
+      <ProfileCard user={user} />
     </Container>
   );
 };
