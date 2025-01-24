@@ -6,6 +6,12 @@ interface ProfileCardProps {
   user: User | undefined;
 }
 
+const formatDate = (date: string | undefined) => {
+  if (!date) return '';
+  const dateObj = new Date(date);
+  return dateObj.toLocaleDateString('pt-BR');
+};
+
 const ProfileCard: React.FC<ProfileCardProps> = ({ user }) => {
   return (
     <MainContainer>
@@ -22,6 +28,10 @@ const ProfileCard: React.FC<ProfileCardProps> = ({ user }) => {
         <LabelContainer>
           <Label>Função:</Label>{' '}
           <Info>{user?.role ? 'Secretária' : 'Coordenação'}</Info>
+        </LabelContainer>
+        <LabelContainer>
+          <Label>Cadastrado em:</Label>
+          <Info>{formatDate(user?.created_at)}</Info>
         </LabelContainer>
       </MainCard>
     </MainContainer>

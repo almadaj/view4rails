@@ -4,7 +4,7 @@ import Container from 'src/components/common/Container';
 import { NavBar } from 'src/components/common/NavBar';
 import { User } from 'src/entities/User';
 import userService from 'src/services/userService';
-import { Title } from './styles';
+import { Button, ProfileCardContainer, Title } from './styles';
 import ProfileCard from 'src/components/ProfileCard';
 
 const ProfilePage = () => {
@@ -21,6 +21,7 @@ const ProfilePage = () => {
         }
         const user = await userService.getUserById(token);
         setUser(user);
+        console.log(user);
         if (!user) {
           navigate('/');
           throw new Error('User not found');
@@ -37,6 +38,9 @@ const ProfilePage = () => {
       <NavBar />
       <Title>Perfil</Title>
       <ProfileCard user={user} />
+      <ProfileCardContainer>
+        <Button>Editar Perfil</Button>
+      </ProfileCardContainer>
     </Container>
   );
 };
