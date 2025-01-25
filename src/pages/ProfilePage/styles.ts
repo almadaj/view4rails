@@ -15,14 +15,33 @@ export const ProfileCardContainer = styled.div`
   align-items: center;
 `;
 
+export const FormGroup = styled.div`
+  margin-bottom: 16px;
+`;
+
+export const Label = styled.label`
+  font-size: 14px;
+  font-weight: 500;
+  margin-bottom: 8px;
+  display: block;
+`;
+
+export const Input = styled.input`
+  width: 100%;
+  padding: 8px;
+  font-size: 16px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+`;
+
 export const Button = styled.button`
   display: flex;
   justify-content: center;
   background-color: #062e70;
-  width: 20%;
+  width: 15%;
   color: #fff;
-  font-size: 1.3rem;
-  padding: 10px 20px;
+  font-size: 1.2rem;
+  padding: 10px 15px;
   border: none;
   border-radius: 20px;
   cursor: pointer;

@@ -1,6 +1,7 @@
 import { jwtDecode } from 'jwt-decode';
 import api from './api';
 import getTokenAndHeaders from './authService';
+import { User } from 'src/entities/User';
 
 const userService = {
   login: async (email: string, password: string) => {
@@ -36,6 +37,18 @@ const userService = {
       throw error;
     }
   },
+
+  updateUser: async (id: string, data: Partial<User>) => {
+    try {
+      const headers = getTokenAndHeaders();
+      const res = await api.put(`/users/${id}`, data, headers);
+      return res.data;
+    } catch (error) {
+      console.log('Error in updateUser', error);
+      throw error;
+    }
+  },
+
   toggleAdminUser: async (id: string) => {
     try {
       const headers = getTokenAndHeaders();
