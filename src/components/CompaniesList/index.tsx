@@ -12,11 +12,13 @@ import {
   PaginationContainer,
 } from './styles';
 import ArrowDownIcon from '@mui/icons-material/ArrowDownward';
+import { useNavigate } from 'react-router-dom';
 
 const CompaniesList = () => {
   const [companies, setCompanies] = useState<Company[]>([]);
   const [page, setPage] = useState(1);
   const itemsPerPage = 10;
+  const navigate = useNavigate();
   document.title = `Empresas | CampusLink`;
 
   useEffect(() => {
@@ -53,7 +55,9 @@ const CompaniesList = () => {
                 <CompanyName>{company.name}</CompanyName>
                 <Cnpj>{company.cnpj}</Cnpj>
               </InfoContainer>
-              <InfoContainer onClick={() => console.log('Ver Status')}>
+              <InfoContainer
+                onClick={() => navigate(`/companies/${company.id}`)}
+              >
                 <Button>
                   <ArrowDownIcon />
                   Ver Status
