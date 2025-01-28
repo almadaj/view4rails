@@ -75,6 +75,13 @@ export const HistoryItem = styled.li`
   }
 `;
 
+export const CompanyCardHeader = styled.div`
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-direction: row;
+`;
+
 export const CompanyName = styled.span`
   font-size: 1.2rem;
   font-weight: bold;
@@ -104,4 +111,38 @@ export const NoInternshipsMessage = styled.div`
   font-size: 1.2rem;
   color: #999;
   margin-top: -1.5rem;
+`;
+
+export const Form = styled.form`
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+`;
+
+export const Field = styled.div`
+  display: flex;
+  flex-direction: column;
+`;
+
+export const FieldLabel = styled.label`
+  font-weight: 600;
+  margin-bottom: 0.5rem;
+  color: #333;
+`;
+
+export const Input = styled.input`
+  padding: 0.5rem 1rem;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  font-size: 1rem;
+  &:focus {
+    border-color: #007bff;
+    outline: none;
+  }
+`;
+
+export const ButtonContainer = styled.div`
+  display: flex;
+  justify-content: flex-end;
+  gap: 0.5rem;
 `;

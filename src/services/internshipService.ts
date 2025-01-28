@@ -24,6 +24,16 @@ const internshipService = {
       throw error;
     }
   },
+  updateInternship: async (id: string, data: any) => {
+    try {
+      const headers = getTokenAndHeaders();
+      const res = await api.put(`/internships/${id}`, data, headers);
+      return res.data;
+    } catch (error) {
+      console.log('Error in updateInternship', error);
+      throw error;
+    }
+  },
 };
 
 export default internshipService;
