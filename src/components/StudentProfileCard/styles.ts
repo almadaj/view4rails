@@ -17,17 +17,33 @@ export const Content = styled.div`
     padding: 1.5rem;
   }
 `;
+export const HeaderContainer = styled.div`
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
+  padding: 10px;
+`;
 
 export const ProfileHeader = styled.h1`
+  flex-grow: 1;
+  text-align: center;
   font-size: 2rem;
   color: #333;
   margin-top: -0.5rem;
 `;
 
+export const EditIcon = styled.span`
+  background: none;
+  border: none;
+  font-size: 24px;
+  cursor: pointer;
+`;
+
 export const SubText = styled.p`
   font-size: 1rem;
   color: #666;
-  margin-top: -2rem;
+  margin-top: -3rem;
 `;
 
 export const InfoCard = styled.div`
@@ -116,17 +132,20 @@ export const NoInternshipsMessage = styled.div`
 export const Form = styled.form`
   display: flex;
   flex-direction: column;
-  gap: 1rem;
+  gap: 0.2rem;
 `;
 
 export const Field = styled.div`
   display: flex;
-  flex-direction: column;
+  flex-direction: row;
+  justify-content: space-between;
+  gap: 0.8rem;
+  margin-bottom: 1rem;
 `;
 
 export const FieldLabel = styled.label`
   font-weight: 600;
-  margin-bottom: 0.5rem;
+  margin-bottom: 0.3rem;
   color: #333;
 `;
 
@@ -135,6 +154,7 @@ export const Input = styled.input`
   border: 1px solid #ccc;
   border-radius: 5px;
   font-size: 1rem;
+  width: 90%;
   &:focus {
     border-color: #007bff;
     outline: none;
@@ -145,4 +165,17 @@ export const ButtonContainer = styled.div`
   display: flex;
   justify-content: flex-end;
   gap: 0.5rem;
+`;
+
+export const Select = styled.select`
+  padding: 0.5rem 1rem;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  font-size: 1rem;
+  width: 90%;
+
+  &:focus {
+    border-color: #007bff;
+    outline: none;
+  }
 `;

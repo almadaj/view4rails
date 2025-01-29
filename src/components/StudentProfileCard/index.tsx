@@ -1,6 +1,21 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { Student } from 'src/entities/Student';
-import { Content, InfoCard, InfoItem, ProfileHeader, SubText } from './styles';
+import {
+  Content,
+  EditIcon,
+  Field,
+  FieldLabel,
+  Form,
+  HeaderContainer,
+  InfoCard,
+  InfoItem,
+  Input,
+  ProfileHeader,
+  Select,
+  SubText,
+} from './styles';
+import StandardModal from '../common/StandardModal';
+import { courses } from 'src/utils/AllCourses';
 
 interface StudentProfileCardProps {
   student: Student | null;
@@ -23,9 +38,142 @@ const formatStudentNumber = (studentNumber: string | undefined) => {
 };
 
 const StudentProfileCard: React.FC<StudentProfileCardProps> = ({ student }) => {
+  const [isModalOpen, setIsModalOpen] = useState(false);
+  const [formData, setFormData] = useState<Partial<Student>>({
+    name: '',
+    email: '',
+    student_number: '',
+    course: '',
+    phone: '',
+    address: '',
+    birth: '',
+  });
+
+  useEffect(() => {
+    if (student && isModalOpen) {
+      setFormData({ ...student });
+    }
+  }, [student, isModalOpen]);
+
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const { name, value } = e.target;
+    setFormData((prev) => ({
+      ...prev,
+      [name]: value,
+    }));
+  };
+
+  const handleSelectChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
+    setFormData((prev) => ({
+      ...prev,
+      course: e.target.value,
+    }));
+  };
+
+  const handleModal = () => {
+    setIsModalOpen(!isModalOpen);
+  };
+
   return (
     <Content>
-      <ProfileHeader>{student?.name || 'Nome não fornecido'}</ProfileHeader>
+      <StandardModal
+        isOpen={isModalOpen}
+        title={'Editar Estudante'}
+        onClose={handleModal}
+        onConfirm={() => console.log('Confirmado')}
+        confirmText={'Salvar Alterações'}
+      >
+        <Form>
+          <Field>
+            <FieldLabel>Nome:</FieldLabel>
+            <Input
+              type="text"
+              name="name"
+              value={formData.name}
+              onChange={handleChange}
+              required
+            />
+          </Field>
+
+          <Field>
+            <FieldLabel>Email:</FieldLabel>
+            <Input
+              type="email"
+              name="email"
+              value={formData.email}
+              onChange={handleChange}
+              required
+            />
+          </Field>
+
+          <Field>
+            <FieldLabel>Matrícula:</FieldLabel>
+            <Input
+              type="text"
+              name="student_number"
+              value={formData.student_number}
+              onChange={handleChange}
+              required
+            />
+          </Field>
+
+          <Field>
+            <FieldLabel>Curso:</FieldLabel>
+            {/* <Input
+              type="text"
+              name="course"
+              value={formData.course}
+              onChange={handleChange}
+            /> */}
+            <Select
+              name="course"
+              value={formData.course}
+              onChange={handleSelectChange}
+            >
+              <option value="">Selecione o curso</option>
+              {courses.map((course) => (
+                <option key={course} value={course}>
+                  {course}
+                </option>
+              ))}
+            </Select>
+          </Field>
+
+          <Field>
+            <FieldLabel>Telefone:</FieldLabel>
+            <Input
+              type="tel"
+              name="phone"
+              value={formData.phone}
+              onChange={handleChange}
+            />
+          </Field>
+
+          <Field>
+            <FieldLabel>Endereço</FieldLabel>
+            <Input
+              type="text"
+              name="address"
+              value={formData.address}
+              onChange={handleChange}
+            />
+          </Field>
+
+          <Field>
+            <FieldLabel>Data de Nascimento:</FieldLabel>
+            <Input
+              type="date"
+              name="birth"
+              value={formData.birth}
+              onChange={handleChange}
+            />
+          </Field>
+        </Form>
+      </StandardModal>
+      <HeaderContainer>
+        <ProfileHeader>{student?.name || 'Nome não fornecido'}</ProfileHeader>
+        <EditIcon onClick={handleModal}>+</EditIcon>
+      </HeaderContainer>
       <SubText>{formatCreatedAt(student?.created_at)}</SubText>
       <InfoCard>
         <InfoItem>
