@@ -49,6 +49,30 @@ const studentService = {
     }
   },
 
+  updateStudent: async (id: string, student: Partial<Student>) => {
+    const { name, email, course, student_number, phone, address, birth } =
+      student;
+
+    const studentData = {
+      name,
+      email,
+      course,
+      student_number,
+      phone,
+      address,
+      birth,
+    };
+
+    try {
+      const headers = getTokenAndHeaders();
+      const res = await api.put(`/students/${id}`, studentData, headers);
+      return res.data;
+    } catch (error) {
+      console.log('Error in updateStudent', error);
+      throw error;
+    }
+  },
+
   getStudentInternships: async (id: string) => {
     try {
       const headers = getTokenAndHeaders();

@@ -16,6 +16,8 @@ import {
 } from './styles';
 import StandardModal from '../common/StandardModal';
 import { courses } from 'src/utils/AllCourses';
+import EditRoundedIcon from '@mui/icons-material/EditRounded';
+import studentService from 'src/services/studentService';
 
 interface StudentProfileCardProps {
   student: Student | null;
@@ -74,13 +76,40 @@ const StudentProfileCard: React.FC<StudentProfileCardProps> = ({ student }) => {
     setIsModalOpen(!isModalOpen);
   };
 
+  const handleSaveEdit = async () => {
+    try {
+      if (!formData.id) {
+        console.log('ID do estudante não encontrado');
+        return;
+      }
+
+      const updatedStudent = {
+        name: formData.name,
+        email: formData.email,
+        course: formData.course,
+        student_number: formData.student_number,
+        phone: formData.phone,
+        address: formData.address,
+        birth: formData.birth,
+      };
+
+      await studentService.updateStudent(formData.id, updatedStudent);
+      alert('Estudante atualizado com sucesso!');
+      handleModal();
+      window.location.reload();
+    } catch (error) {
+      console.error('Erro ao atualizar estudante:', error);
+      alert('Erro ao atualizar estudante');
+    }
+  };
+
   return (
     <Content>
       <StandardModal
         isOpen={isModalOpen}
         title={'Editar Estudante'}
         onClose={handleModal}
-        onConfirm={() => console.log('Confirmado')}
+        onConfirm={handleSaveEdit}
         confirmText={'Salvar Alterações'}
       >
         <Form>
@@ -119,12 +148,6 @@ const StudentProfileCard: React.FC<StudentProfileCardProps> = ({ student }) => {
 
           <Field>
             <FieldLabel>Curso:</FieldLabel>
-            {/* <Input
-              type="text"
-              name="course"
-              value={formData.course}
-              onChange={handleChange}
-            /> */}
             <Select
               name="course"
               value={formData.course}
@@ -172,7 +195,9 @@ const StudentProfileCard: React.FC<StudentProfileCardProps> = ({ student }) => {
       </StandardModal>
       <HeaderContainer>
         <ProfileHeader>{student?.name || 'Nome não fornecido'}</ProfileHeader>
-        <EditIcon onClick={handleModal}>+</EditIcon>
+        <EditIcon onClick={handleModal}>
+          <EditRoundedIcon />
+        </EditIcon>
       </HeaderContainer>
       <SubText>{formatCreatedAt(student?.created_at)}</SubText>
       <InfoCard>
