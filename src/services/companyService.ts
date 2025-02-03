@@ -45,6 +45,27 @@ const companyService = {
       throw error;
     }
   },
+
+  updateCompany: async (id: string, company: Partial<Company>) => {
+    const { name, cnpj, address, email, phone } = company;
+
+    const companyData = {
+      name,
+      cnpj,
+      address,
+      email,
+      phone,
+    };
+
+    try {
+      const headers = getTokenAndHeaders();
+      const res = await api.put(`/companies/${id}`, companyData, headers);
+      return res.data;
+    } catch (error) {
+      console.log('Error in updateCompany', error);
+      throw error;
+    }
+  },
 };
 
 export default companyService;
