@@ -156,3 +156,28 @@ export const Input = styled.input`
     outline: none;
   }
 `;
+
+export const StudentContainer = styled.div`
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  padding: 10px;
+  width: 100%;
+  background-color: #f9f9f9;
+  cursor: pointer;
+`;
+
+export const StudentName = styled.span`
+  font-size: 1rem;
+  font-weight: bold;
+  display: block;
+  color: #333;
+`;
+
+export const CourseTitle = styled.span`
+  font-size: 1rem;
+  color: #666;
+`;

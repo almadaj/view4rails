@@ -66,6 +66,16 @@ const companyService = {
       throw error;
     }
   },
+  getInternsByCompany: async (id: string) => {
+    try {
+      const headers = getTokenAndHeaders();
+      const res = await api.get(`/companies/${id}/interns`, headers);
+      return res.data;
+    } catch (error) {
+      console.log('Error in internsByCompany', error);
+      throw error;
+    }
+  },
 };
 
 export default companyService;
