@@ -4,14 +4,7 @@ import Container from 'src/components/common/Container';
 import { NavBar } from 'src/components/common/NavBar';
 import { User } from 'src/entities/User';
 import userService from 'src/services/userService';
-import {
-  Button,
-  ProfileCardContainer,
-  Title,
-  Input,
-  FormGroup,
-  Label,
-} from './styles';
+import { Button, Title, Input, FormGroup, Label, ImagePreview } from './styles';
 import ProfileCard from 'src/components/ProfileCard';
 import StandardModal from 'src/components/common/StandardModal';
 import { isValidEmail } from 'src/utils/VerifyEmail';
@@ -20,8 +13,8 @@ const ProfilePage = () => {
   const [user, setUser] = useState<User>();
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [formData, setFormData] = useState<Partial<User>>({
-    name: user?.name || '',
-    email: user?.email || '',
+    name: '',
+    email: '',
   });
 
   const navigate = useNavigate();
@@ -37,7 +30,7 @@ const ProfilePage = () => {
         }
         const user = await userService.getUserById(token);
         setUser(user);
-        setFormData({ name: user?.name || '', email: user?.email || '' }); // Atualiza formData com dados do usuário
+        setFormData({ name: user?.name || '', email: user?.email || '' });
       } catch (error) {
         console.log('Error in fetchUser', error);
       }
@@ -47,8 +40,9 @@ const ProfilePage = () => {
 
   const handleOpenModal = () => {
     setIsModalOpen(!isModalOpen);
-    if (isModalOpen)
+    if (isModalOpen) {
       setFormData({ name: user?.name || '', email: user?.email || '' });
+    }
   };
 
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -66,8 +60,11 @@ const ProfilePage = () => {
         navigate('/');
         throw new Error('Token not found');
       }
-      if (!formData.name || !formData.email || !isValidEmail(formData.email))
+      if (!formData.name || !formData.email || !isValidEmail(formData.email)) {
         alert('Preencha os campos corretamente');
+        return;
+      }
+
       const updatedUser = await userService.updateUser(token, formData);
       setUser(updatedUser);
       setIsModalOpen(false);
@@ -81,7 +78,14 @@ const ProfilePage = () => {
     <Container>
       <NavBar />
       <Title>Perfil</Title>
-
+      <ImagePreview
+        src={
+          user?.photo ||
+          'https://icon-library.com/images/avatar-icon-images/avatar-icon-images-8.jpg'
+        }
+        alt="Foto de perfil"
+      />
+      <ProfileCard user={user} />
       <StandardModal
         isOpen={isModalOpen}
         onClose={handleOpenModal}
@@ -110,11 +114,7 @@ const ProfilePage = () => {
           />
         </FormGroup>
       </StandardModal>
-
-      <ProfileCard user={user} />
-      <ProfileCardContainer>
-        <Button onClick={handleOpenModal}>Editar Perfil</Button>
-      </ProfileCardContainer>
+      <Button onClick={handleOpenModal}>Editar Perfil</Button>
     </Container>
   );
 };

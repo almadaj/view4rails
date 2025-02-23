@@ -13,6 +13,9 @@ export const ProfileCardContainer = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
+  justify-content: center;
+  margin-top: 20px;
+  width: 100%;
 `;
 
 export const FormGroup = styled.div`
@@ -35,19 +38,33 @@ export const Input = styled.input`
 `;
 
 export const Button = styled.button`
-  display: flex;
-  justify-content: center;
   background-color: #062e70;
-  width: 15%;
   color: #fff;
   font-size: 1.2rem;
   padding: 10px 15px;
-  border: none;
   border-radius: 20px;
+  border: none;
   cursor: pointer;
   margin-top: 15px;
-  transition: background-color 0.3s;
+  width: 200px;
+  text-align: center;
+  margin-left: auto;
+  margin-right: auto;
   &:hover {
     background-color: #555;
+  }
+`;
+
+export const ImagePreview = styled.img`
+  margin: auto;
+  width: 120px;
+  height: 120px;
+  border-radius: 50%;
+  object-fit: cover;
+  border: 2px solid #ccc;
+  cursor: pointer;
+  &:hover {
+    border: 3px solid #007bff;
+    transition: all 0.3s;
   }
 `;

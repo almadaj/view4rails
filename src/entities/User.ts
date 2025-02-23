@@ -5,6 +5,7 @@ export interface User {
   registration: string;
   password: string;
   role: string;
+  photo: string;
   created_at: string;
   updated_at: string;
 }
