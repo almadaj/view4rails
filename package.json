@@ -24,12 +24,13 @@
     "react-input-mask": "^2.0.4",
     "react-router-dom": "^6.28.0",
     "react-scripts": "5.0.1",
+    "serve": "^14.2.4",
     "styled-components": "^6.1.13",
     "typescript": "^4.9.5",
     "web-vitals": "^2.1.4"
   },
   "scripts": {
-    "start": "PORT=3001 react-scripts start",
+    "start": "react-scripts build && serve -s build",
     "build": "DISABLE_ESLINT_PLUGIN=true react-scripts build",
     "test": "react-scripts test",
     "eject": "react-scripts eject"
@@ -53,11 +54,11 @@
     ]
   },
   "devDependencies": {
+    "@babel/plugin-proposal-private-property-in-object": "^7.16.7",
     "@types/react-input-mask": "^3.0.6",
     "@types/react-router-dom": "^5.3.3",
     "eslint-config-prettier": "^9.1.0",
     "eslint-plugin-prettier": "^5.2.1",
-    "prettier": "^3.4.1",
-    "@babel/plugin-proposal-private-property-in-object": "^7.16.7"
+    "prettier": "^3.4.1"
   }
 }
